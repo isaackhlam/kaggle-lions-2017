@@ -15,7 +15,8 @@ from skimage.feature import blob_log
 from sklearn.base import clone
 from sklearn.dummy import DummyRegressor
 from sklearn.ensemble import ExtraTreesRegressor
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 from sklearn.linear_model import Lasso
 from sklearn.model_selection import cross_val_predict, GroupKFold
 from sklearn import metrics
