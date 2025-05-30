@@ -331,7 +331,7 @@ def train(args, model: nn.Module, criterion, *, train_loader, valid_loader,
                 optimizer.step()
                 step += 1
                 tq.update(batch_size)
-                losses.append(loss.data[0])
+                losses.append(loss.item())
                 mean_loss = np.mean(losses[-report_each:])
                 tq.set_postfix(loss='{:.3f}'.format(mean_loss))
                 if i and i % report_each == 0:
@@ -394,7 +394,7 @@ def validation(model: nn.Module, criterion, valid_loader,
         inputs, targets = variable(inputs, volatile=True), variable(targets)
         outputs = model(inputs)
         loss = criterion(outputs, targets)
-        losses.append(loss.data[0])
+        losses.append(loss.item())
         if is_classification:
             all_targets.extend(targets.data.cpu().numpy())
             all_outputs.extend(outputs.data.cpu().numpy().argmax(axis=1))

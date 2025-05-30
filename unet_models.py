@@ -82,7 +82,7 @@ class UNet(nn.Module):
             x_out = up(concat([x_out, x_skip]))
 
         x_out = self.conv_final(x_out)
-        return F.log_softmax(x_out)
+        return F.log_softmax(x_out, dim=1)
 
 
 class UNetWithHead(nn.Module):
