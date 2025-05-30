@@ -177,7 +177,9 @@ class BaseDataset(Dataset):
         self.imgs = {img_id: load_image(p, cache=True)
                      for img_id, p in tqdm.tqdm(list(zip(self.img_ids, img_paths)),
                                                 desc='Images')}
-        self.coords = coords.loc[self.img_ids].dropna()
+        valid_img_ids = [img_id for img_id in self.img_ids if img_id in coords.index]
+        self.coords = coords.loc[valid_img_ids].dropna()
+        # self.coords = coords.loc[self.img_ids].dropna()
         self.coords_by_img_id = {}
         for img_id in self.img_ids:
             try:
