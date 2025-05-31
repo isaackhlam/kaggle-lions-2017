@@ -371,9 +371,18 @@ def rotated(patch, angle):
     return cv2.warpAffine(patch, rot_mat, size, flags=cv2.INTER_LINEAR)
 
 
+# def save_image(fname, data):
+    # with warnings.catch_warnings():
+        # warnings.simplefilter('ignore')
+        # skimage.io.imsave(fname, data)
+
 def save_image(fname, data):
     with warnings.catch_warnings():
         warnings.simplefilter('ignore')
+        if data.dtype in [np.float32, np.float64]:
+            data = np.clip(data, 0, 1)
+            data = (data * 255).astype(np.uint8)
+        data = np.squeeze(data)
         skimage.io.imsave(fname, data)
 
 
